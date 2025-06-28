@@ -1,4 +1,4 @@
-# 📋 Project Requirements: ALX Airbnb Database Design
+# 📋 ALX Airbnb Database Design
 
 ## 🧠 Overview
 
