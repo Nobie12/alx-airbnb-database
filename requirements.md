@@ -56,14 +56,14 @@ The goal is to design a **normalized, relational database** that supports essent
 
 ## Relationships Between Entities (with Explanation)
 
-1. User ↔ Property
+### 1. User ↔ Property
 - A User (host) can have many Properties
 
 - A Property belongs to one User
 
-🧠 Relationship: 1 User → 0.. Properties*
+> 🧠 Relationship: 1 User → 0.. Properties*
 
-📄 Attribute: host_id is a foreign key in Property
+> 📄 Attribute: host_id is a foreign key in Property
 
 ---
 
