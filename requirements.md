@@ -54,15 +54,16 @@ The goal is to design a **normalized, relational database** that supports essent
 
 ---
 
-## 🔄 Relationships Summary
+## Relationships Between Entities (with Explanation)
 
-- One **User** (host) ➝ many **Properties**
-- One **User** (guest) ➝ many **Bookings**
-- One **Property** ➝ many **Bookings**
-- One **Booking** ➝ one **Payment**
-- One **User** ➝ many **Reviews**
-- One **Property** ➝ many **Reviews**
-- One **User** ↔ many **Messages** (as sender/receiver)
+1. User ↔ Property
+- A User (host) can have many Properties
+
+- A Property belongs to one User
+
+🧠 Relationship: 1 User → 0.. Properties*
+
+📄 Attribute: host_id is a foreign key in Property
 
 ---
 
