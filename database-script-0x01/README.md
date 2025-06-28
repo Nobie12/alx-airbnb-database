@@ -1,12 +1,17 @@
-# 🏠 Airbnb Clone - Database Schema Script
+# 🏠 Airbnb Clone - Database Schema
+
+This repository contains the SQL script for creating a PostgreSQL database schema for the Airbnb Clone project. The schema is designed to be robust, normalized, and optimized for performance.
+
+---
 
 ## 📄 Overview
 
-This directory contains the SQL script for creating the **database schema** of the Airbnb Clone project. The schema is designed to be:
+The schema supports core Airbnb features by including:
 
-- **Robust** – Supports core Airbnb features
-- **Normalized** – Avoids data redundancy
-- **Efficient** – Optimized for performance with indexing
+- Custom `ENUM` types for data integrity
+- Relational tables for users, properties, bookings, payments, reviews, and messages
+- Proper use of constraints (e.g., `PRIMARY KEY`, `FOREIGN KEY`, `CHECK`)
+- Indexes for improving query performance on frequently accessed columns
 
 ---
 
@@ -14,37 +19,55 @@ This directory contains the SQL script for creating the **database schema** of t
 
 ### `schema.sql`
 
-This is the main SQL **DDL (Data Definition Language)** script. It performs the following actions:
-
-1. **Creates Custom Types**  
-   Defines `ENUM` types for:
-   - User roles (e.g., `guest`, `host`, `admin`)
-   - Booking statuses (e.g., `pending`, `confirmed`)
-   - Payment methods (e.g., `card`, `paypal`)  
-   > 🧠 This ensures data consistency across related columns.
-
-2. **Creates Tables**  
-   Builds all the necessary tables:
-   - `User`
-   - `Property`
-   - `Booking`
-   - `Payment`
-   - `Review`
-   - `Message`
-
-3. **Defines Constraints**  
-   Applies strict data integrity rules:
-   - `PRIMARY KEY`, `FOREIGN KEY`
-   - `UNIQUE`, `NOT NULL`, and `CHECK`
-
-4. **Creates Indexes**  
-   Adds indexes on frequently queried columns (e.g., `user_id`, `email`, `property_id`) to improve query performance.
+This is the main file that defines the database structure. It consists of the following steps:
 
 ---
 
-## ▶️ How to Use
+## 🧱 Schema Breakdown
 
-To set up the schema in a **PostgreSQL** database, run the script using the `psql` command-line tool:
+### 1. 🔁 Drop Existing Objects
 
-```bash
-psql -U your_username -d your_database_name -f schema.sql
+To ensure a clean setup on every run, the script drops any existing tables and custom types:
+
+```sql
+DROP TABLE IF EXISTS Message, Review, Payment, Booking, Property, "User" CASCADE;
+DROP TYPE IF EXISTS user_role, booking_status, payment_method;
+```
+### 2. 🧩 Creates ENUM Types
+
+Defines controlled value sets for specific columns to maintain consistency:
+
+- user_role: guest, host, admin
+
+- booking_status: pending, confirmed, canceled
+
+- payment_method: credit_card, paypal, stripe
+
+### 3. 🗂️ Creates Tables
+🔹 User
+Stores user info (both guests and hosts).
+
+🔹 Property
+Represents properties listed by hosts.
+
+🔹 Booking
+Tracks reservations made by guests for properties.
+
+🔹 Payment
+Records payment information tied to bookings.
+
+🔹 Review
+Allows users to leave feedback and ratings on properties.
+
+🔹 Message
+Handles communication between users (guest ↔ host).
+
+All tables use appropriate data types and constraints like:
+
+UUID primary keys
+
+FOREIGN KEY with ON DELETE CASCADE or SET NULL
+
+NOT NULL, UNIQUE, and CHECK constraints
+
+
