@@ -101,6 +101,24 @@ The goal is to design a **normalized, relational database** that supports essent
 > 🧠 Relationship: 1 User → 0.. Reviews*
 
 > 📄 user_id in Review
+
+### 6. Property ↔ Review
+- A Property can have many Reviews
+
+- Each Review is for one Property
+
+> 🧠 Relationship: 1 Property → 0.. Reviews*
+
+> 📄 property_id in Review
+
+### 7. User ↔ Message ↔ User
+- A User can send many Messages
+
+- A User can also receive many Messages
+
+> 🧠 Relationship: M:N between Users, but represented via Message entity*
+
+> sender_id and recipient_id both refer to User.user_id
 ---
 
 ## 🗂️ ER Diagram
