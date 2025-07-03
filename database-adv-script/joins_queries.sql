@@ -11,7 +11,8 @@ including properties that have no reviews.
 SELECT p.name, r.comment
 FROM Property AS p
 LEFT JOIN Reviews AS r 
-ON p.property_id = r.property_id;
+ON p.property_id = r.property_id
+ORDER BY p.property_id ASC;
 
 /*
 Write a query using a FULL OUTER JOIN to retrieve all users and all bookings,
