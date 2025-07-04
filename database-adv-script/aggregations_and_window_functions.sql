@@ -18,10 +18,6 @@ based on the total number of bookings they have received.
 a window function (ROW_NUMBER, RANK) to rank properties
 based on the total number of bookings they have received.
 */
-/*
-a window function (ROW_NUMBER, RANK) to rank properties
-based on the total number of bookings they have received.
-*/
 SELECT
     p.property_id,
     p.name AS property_name,
@@ -41,3 +37,28 @@ INNER JOIN (
 ) AS property_booking_counts ON p.property_id = property_booking_counts.property_id
 ORDER BY
     rank_by_bookings ASC, p.name ASC; -- Order the final result for consistent output
+
+
+/*
+Query 2: Using RANK() to rank properties by total bookings.
+RANK() assigns the same rank to rows with the same values in the ORDER BY clause.
+It leaves gaps in the ranking sequence if there are ties.
+*/
+SELECT
+    p.property_id,
+    p.name AS property_name,
+    property_booking_counts.total_bookings,
+    RANK() OVER (ORDER BY property_booking_counts.total_bookings DESC) AS rank_by_bookings_rank
+FROM
+    Property AS p
+INNER JOIN (
+    SELECT
+        b.property_id,
+        COUNT(b.booking_id) AS total_bookings
+    FROM
+        Booking AS b
+    GROUP BY
+        b.property_id
+) AS property_booking_counts ON p.property_id = property_booking_counts.property_id
+ORDER BY
+    rank_by_bookings_rank ASC, p.name ASC;
