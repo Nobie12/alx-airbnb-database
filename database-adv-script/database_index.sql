@@ -31,7 +31,7 @@ CREATE INDEX idx_bookings_status ON bookings(status);
 
 ✅ After creating the index:
 ```sql
-EXPLAIN SELECT * FROM bookings WHERE user_id = 101;
+EXPLAIN ANALYZE SELECT * FROM bookings WHERE user_id = 101;
 ```
 
 **Observe:**
