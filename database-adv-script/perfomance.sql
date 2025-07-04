@@ -6,7 +6,7 @@ JOIN properties AS p ON b.property_id = p.property_id
 LEFT JOIN payments AS pay ON b.booking_id = pay.booking_id;
 
 
--- ✅ Optimized Query (Improved Performance)
+-- ✅ Optimized Query (Improved Performance with AND in WHERE)
 SELECT 
   b.booking_id,
   b.start_date,
@@ -21,6 +21,7 @@ JOIN users AS u ON b.user_id = u.user_id
 JOIN properties AS p ON b.property_id = p.property_id
 LEFT JOIN payments AS pay ON b.booking_id = pay.booking_id
 WHERE b.status = 'confirmed'
+AND b.start_date >= CURRENT_DATE
 ORDER BY b.start_date DESC;
 
 
@@ -33,7 +34,7 @@ JOIN properties AS p ON b.property_id = p.property_id
 LEFT JOIN payments AS pay ON b.booking_id = pay.booking_id;
 
 
--- 🔍 EXPLAIN ANALYZE After Optimization (Example)
+-- 🔍 EXPLAIN ANALYZE After Optimization (Example with AND)
 EXPLAIN ANALYZE
 SELECT 
   b.booking_id,
@@ -49,4 +50,5 @@ JOIN users AS u ON b.user_id = u.user_id
 JOIN properties AS p ON b.property_id = p.property_id
 LEFT JOIN payments AS pay ON b.booking_id = pay.booking_id
 WHERE b.status = 'confirmed'
+AND b.start_date >= CURRENT_DATE
 ORDER BY b.start_date DESC;
